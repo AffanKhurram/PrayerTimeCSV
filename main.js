@@ -60,6 +60,10 @@ function downloadFile (data) {
     link.click();
 }
 
+document.getElementById('location').addEventListener('click', async function(e) {
+    navigator.geolocation.getCurrentPosition(success, err);
+});
+
 document.getElementById('submit').addEventListener('click', async function(e) {
     var form = document.getElementById('input');
     var start = form.start.value.split('-');
@@ -97,3 +101,20 @@ document.getElementById('submit').addEventListener('click', async function(e) {
     downloadFile(createArray(arr, options, start, end));
         
 });
+
+async function success (data) {
+    var url = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + data.coords.latitude + "&longitude=" + data.coords.longitude + "&localityLanguage=en";
+    await fetchAsync(url)
+        .then(function(pos) {
+            document.getElementById("input").address.value = pos.city + "," + pos.principalSubdivision + ',' + pos.countryCode;
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+}
+
+function err (e) {
+    console.log(e)
+}
+
+navigator.geolocation.getCurrentPosition(success, err);
