@@ -57,7 +57,7 @@ document.getElementById('submit').addEventListener('click', function(e) {
         isha: document.getElementById("Isha").checked
     }
         
-    fetchAsync("http://api.aladhan.com/v1/calendarByAddress?address=Richardson,TX,USA&method=2&month=9&year=2021")
+    fetchAsync("https://api.aladhan.com/v1/calendarByAddress?address=Richardson,TX,USA&method=2&month=9&year=2021")
         .then(function(data) {
             var arr = createArray(data, options);
             // arr.forEach(function(row) {
