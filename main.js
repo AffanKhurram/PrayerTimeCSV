@@ -104,8 +104,10 @@ document.getElementById('submit').addEventListener('click', async function(e) {
 
 async function success (data) {
     var url = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + data.coords.latitude + "&longitude=" + data.coords.longitude + "&localityLanguage=en";
+    console.log("latitude:", data.coords.latitude, "longitude:", data.coords.latitude);
     await fetchAsync(url)
         .then(function(pos) {
+            console.log(pos);
             document.getElementById("input").address.value = pos.city + "," + pos.principalSubdivision + ',' + pos.countryCode;
         })
         .catch(function(err) {
