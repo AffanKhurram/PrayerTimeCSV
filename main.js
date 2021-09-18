@@ -103,12 +103,14 @@ document.getElementById('submit').addEventListener('click', async function(e) {
 });
 
 async function success (data) {
-    var url = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + data.coords.latitude + "&longitude=" + data.coords.longitude + "&localityLanguage=en";
+    // var url = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + data.coords.latitude + "&longitude=" + data.coords.longitude + "&localityLanguage=en";
+    var url = "https://us1.locationiq.com/v1/reverse.php?key=pk.37de332d062dad3db1fb4ec86b5a16a3&lat=" + data.coords.latitude + "&lon=" + data.coords.longitude + "&format=json";
     console.log("latitude:", data.coords.latitude, "longitude:", data.coords.latitude);
     await fetchAsync(url)
         .then(function(pos) {
             console.log(pos);
-            document.getElementById("input").address.value = pos.city + "," + pos.principalSubdivision + ',' + pos.countryCode;
+            // document.getElementById("input").address.value = pos.city + "," + pos.principalSubdivision + ',' + pos.countryCode;
+            document.getElementById("input").address.value = pos.address.city + "," + pos.address.state + "," + pos.address.country_code.toUpperCase();
         })
         .catch(function(err) {
             console.log(err);
@@ -120,3 +122,6 @@ function err (e) {
 }
 
 navigator.geolocation.getCurrentPosition(success, err);
+
+
+
